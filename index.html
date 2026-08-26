@@ -78,8 +78,7 @@
 
 <!-- ============================================================
      RELEASE BANNER
-     SOURCE:
-     main/version.json
+     SOURCE: main/version.json
      ============================================================ -->
 
 <div
@@ -325,9 +324,9 @@
         where members stay connected,
         informed, and celebrated.
 
-        From official announcements to community
-        events and shared achievements, this is
-        where the Pride comes together.
+        From official announcements to
+        community events and shared achievements,
+        this is where the Pride comes together.
 
       </p>
 
@@ -376,8 +375,29 @@
 
 <!-- ============================================================
      SCHEDULED UPDATE
+     
      SOURCE:
+     GitHub repository:
+     crislorencenenez7-byte/Golden-Pride-Hub
+
+     Branch:
+     staging
+
+     File:
+     update.json
+
+     IMPORTANT:
+     update.json must exist at:
+
      staging/update.json
+
+     NOT:
+
+     staging/update-1.4/update.json
+
+     NOT:
+
+     main/update.json
      ============================================================ -->
 
 <section
@@ -466,7 +486,9 @@
 
       <div
         class="glass"
-        style="padding:18px 10px;"
+        style="
+          padding:18px 10px;
+        "
       >
 
         <strong
@@ -498,7 +520,9 @@
 
       <div
         class="glass"
-        style="padding:18px 10px;"
+        style="
+          padding:18px 10px;
+        "
       >
 
         <strong
@@ -530,7 +554,9 @@
 
       <div
         class="glass"
-        style="padding:18px 10px;"
+        style="
+          padding:18px 10px;
+        "
       >
 
         <strong
@@ -562,7 +588,9 @@
 
       <div
         class="glass"
-        style="padding:18px 10px;"
+        style="
+          padding:18px 10px;
+        "
       >
 
         <strong
@@ -592,9 +620,7 @@
     </div>
 
 
-    <!-- ========================================================
-         STATUS
-         ======================================================== -->
+    <!-- STATUS -->
 
     <p
       id="update-status"
@@ -716,17 +742,27 @@
 
 <script>
 
+"use strict";
+
 
 /* ============================================================
    YEAR
    ============================================================ */
 
-document.getElementById("year").textContent =
-  new Date().getFullYear();
+const yearElement =
+  document.getElementById("year");
+
+
+if (yearElement) {
+
+  yearElement.textContent =
+    new Date().getFullYear();
+
+}
 
 
 /* ============================================================
-   VERSION BANNER
+   RELEASE BANNER
    SOURCE:
    main/version.json
    ============================================================ */
@@ -739,12 +775,19 @@ async function loadReleaseBanner() {
     );
 
 
+  if (!banner) {
+    return;
+  }
+
+
   try {
 
     const response =
       await fetch(
-        "version.json?ts=" + Date.now(),
+        "version.json?ts=" +
+        Date.now(),
         {
+          method: "GET",
           cache: "no-store"
         }
       );
@@ -753,7 +796,8 @@ async function loadReleaseBanner() {
     if (!response.ok) {
 
       throw new Error(
-        `version.json HTTP ${response.status}`
+        "version.json HTTP " +
+        response.status
       );
 
     }
@@ -779,8 +823,8 @@ async function loadReleaseBanner() {
         ? `${updateName} • ${version}`
         : updateName;
 
-  }
 
+  }
 
   catch (error) {
 
@@ -801,15 +845,15 @@ async function loadReleaseBanner() {
 /* ============================================================
    SCHEDULED UPDATE
    SOURCE:
-   staging/update.json
+   GitHub staging branch
 
-   REPOSITORY:
+   Repository:
    crislorencenenez7-byte/Golden-Pride-Hub
 
-   BRANCH:
+   Branch:
    staging
 
-   FILE:
+   File:
    update.json
    ============================================================ */
 
@@ -817,7 +861,7 @@ async function loadScheduledUpdate() {
 
 
   /* ==========================================================
-     HTML ELEMENTS
+     ELEMENTS
      ========================================================== */
 
   const updateName =
@@ -869,12 +913,41 @@ async function loadScheduledUpdate() {
 
 
   /* ==========================================================
+     CHECK ELEMENTS
+     ========================================================== */
+
+  if (
+    !updateName ||
+    !updateVersion ||
+    !description ||
+    !status ||
+    !days ||
+    !hours ||
+    !minutes ||
+    !seconds
+  ) {
+
+    console.error(
+      "Countdown elements are missing."
+    );
+
+    return;
+
+  }
+
+
+  /* ==========================================================
      GITHUB RAW URL
 
-     MAIN:
-     version.json
+     IMPORTANT:
 
-     STAGING:
+     Repository:
+     Golden-Pride-Hub
+
+     Branch:
+     staging
+
+     File:
      update.json
      ========================================================== */
 
@@ -888,7 +961,7 @@ async function loadScheduledUpdate() {
 
 
   console.log(
-    "Loading scheduled update from:",
+    "Scheduled update URL:",
     UPDATE_URL
   );
 
@@ -897,7 +970,7 @@ async function loadScheduledUpdate() {
 
 
     /* ========================================================
-       FETCH update.json
+       FETCH
        ======================================================== */
 
     const response =
@@ -911,7 +984,7 @@ async function loadScheduledUpdate() {
 
 
     console.log(
-      "update.json HTTP status:",
+      "Scheduled update HTTP status:",
       response.status
     );
 
@@ -919,7 +992,7 @@ async function loadScheduledUpdate() {
     if (!response.ok) {
 
       throw new Error(
-        `staging/update.json HTTP ${response.status}`
+        `HTTP ${response.status}`
       );
 
     }
@@ -934,61 +1007,31 @@ async function loadScheduledUpdate() {
 
 
     console.log(
-      "Loaded staging/update.json:",
+      "Scheduled update data:",
       data
     );
 
 
     /* ========================================================
-       VALIDATE JSON
+       VALIDATE
        ======================================================== */
 
     if (
-      !data.version
-    ) {
-
-      throw new Error(
-        "Missing version"
-      );
-
-    }
-
-
-    if (
-      !data.updateName
-    ) {
-
-      throw new Error(
-        "Missing updateName"
-      );
-
-    }
-
-
-    if (
-      !data.releaseDate
-    ) {
-
-      throw new Error(
-        "Missing releaseDate"
-      );
-
-    }
-
-
-    if (
+      !data.version ||
+      !data.updateName ||
+      !data.releaseDate ||
       !data.releaseTime
     ) {
 
       throw new Error(
-        "Missing releaseTime"
+        "update.json is missing required fields."
       );
 
     }
 
 
     /* ========================================================
-       DISPLAY UPDATE
+       DISPLAY DATA
        ======================================================== */
 
     updateVersion.textContent =
@@ -1004,15 +1047,17 @@ async function loadScheduledUpdate() {
 
 
     /* ========================================================
-       PHILIPPINE TIME
+       CREATE RELEASE TIMESTAMP
 
-       releaseDate:
+       Philippine Time = UTC+08:00
+
+       Example:
+
        2026-08-27
-
-       releaseTime:
        20:00
 
-       Result:
+       becomes:
+
        2026-08-27T20:00:00+08:00
        ======================================================== */
 
@@ -1027,25 +1072,29 @@ async function loadScheduledUpdate() {
     );
 
 
-    /* ========================================================
-       CONVERT TO TIMESTAMP
-       ======================================================== */
-
-    const releaseTime =
+    const releaseDate =
       new Date(
         releaseString
-      ).getTime();
+      );
+
+
+    const releaseTimestamp =
+      releaseDate.getTime();
 
 
     console.log(
       "Release timestamp:",
-      releaseTime
+      releaseTimestamp
     );
 
 
+    /* ========================================================
+       VALIDATE DATE
+       ======================================================== */
+
     if (
       Number.isNaN(
-        releaseTime
+        releaseTimestamp
       )
     ) {
 
@@ -1057,8 +1106,11 @@ async function loadScheduledUpdate() {
 
 
     /* ========================================================
-       COUNTDOWN FUNCTION
+       COUNTDOWN TIMER
        ======================================================== */
+
+    let countdownInterval = null;
+
 
     function updateCountdown() {
 
@@ -1068,17 +1120,18 @@ async function loadScheduledUpdate() {
 
 
       const difference =
-        releaseTime -
+        releaseTimestamp -
         now;
 
 
       /* ======================================================
-         RELEASED
+         UPDATE ALREADY RELEASED
          ====================================================== */
 
       if (
         difference <= 0
       ) {
+
 
         days.textContent =
           "00";
@@ -1100,6 +1153,29 @@ async function loadScheduledUpdate() {
           `${data.updateName} • UPDATE IS NOW LIVE!`;
 
 
+        status.style.color =
+          "var(--color-gold)";
+
+
+        console.log(
+          "UPDATE IS NOW LIVE!"
+        );
+
+
+        if (
+          countdownInterval !== null
+        ) {
+
+          clearInterval(
+            countdownInterval
+          );
+
+          countdownInterval =
+            null;
+
+        }
+
+
         return;
 
       }
@@ -1116,7 +1192,7 @@ async function loadScheduledUpdate() {
 
 
       /* ======================================================
-         DAYS
+         CALCULATE
          ====================================================== */
 
       const d =
@@ -1124,10 +1200,6 @@ async function loadScheduledUpdate() {
           totalSeconds / 86400
         );
 
-
-      /* ======================================================
-         HOURS
-         ====================================================== */
 
       const h =
         Math.floor(
@@ -1137,10 +1209,6 @@ async function loadScheduledUpdate() {
         );
 
 
-      /* ======================================================
-         MINUTES
-         ====================================================== */
-
       const m =
         Math.floor(
           (
@@ -1148,10 +1216,6 @@ async function loadScheduledUpdate() {
           ) / 60
         );
 
-
-      /* ======================================================
-         SECONDS
-         ====================================================== */
 
       const s =
         totalSeconds % 60;
@@ -1197,30 +1261,40 @@ async function loadScheduledUpdate() {
         `Releasing ${data.releaseDate} ` +
         `at ${data.releaseTime} PH`;
 
+
+      status.style.color =
+        "var(--color-gray)";
+
+
     }
 
 
     /* ========================================================
-       START COUNTDOWN IMMEDIATELY
+       FIRST UPDATE
        ======================================================== */
 
     updateCountdown();
 
 
     /* ========================================================
-       UPDATE EVERY SECOND
+       START TIMER
        ======================================================== */
 
-    setInterval(
-      updateCountdown,
-      1000
-    );
+    countdownInterval =
+      setInterval(
+        updateCountdown,
+        1000
+      );
+
 
   }
 
-
   catch (error) {
 
+
+    /* ========================================================
+       ERROR
+       ======================================================== */
 
     console.error(
       "Scheduled update error:",
@@ -1228,20 +1302,16 @@ async function loadScheduledUpdate() {
     );
 
 
-    /* ========================================================
-       ERROR DISPLAY
-       ======================================================== */
-
     updateVersion.textContent =
       "UPDATE";
 
 
     updateName.textContent =
-      "Update schedule unavailable";
+      "No scheduled update";
 
 
     description.textContent =
-      "Unable to load scheduled update.";
+      "No active scheduled release was found.";
 
 
     days.textContent =
@@ -1261,7 +1331,8 @@ async function loadScheduledUpdate() {
 
 
     status.textContent =
-      "Could not read staging/update.json.";
+      "Unable to load staging/update.json.";
+
 
   }
 
@@ -1281,25 +1352,25 @@ function initPreview() {
     typeof db !== "undefined"
   ) {
 
+
     loadRecentAnnouncementPreview();
 
-  }
 
-
-  else {
-
-    setTimeout(
-      initPreview,
-      300
-    );
+    return;
 
   }
+
+
+  setTimeout(
+    initPreview,
+    300
+  );
 
 }
 
 
 /* ============================================================
-   START
+   START APPLICATION
    ============================================================ */
 
 loadReleaseBanner();
@@ -1319,13 +1390,11 @@ if (
 
 }
 
-
 else {
 
   initPreview();
 
 }
-
 
 </script>
 
