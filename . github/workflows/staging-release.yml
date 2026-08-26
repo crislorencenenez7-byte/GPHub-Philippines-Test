@@ -1,1 +1,429 @@
+name: Staging Scheduled Release
 
+on:
+  schedule:
+    # Check every 5 minutes
+    - cron: "*/5 * * * *"
+
+  workflow_dispatch:
+
+  repository_dispatch:
+    types:
+      - schedule-release
+
+
+permissions:
+  contents: write
+
+
+concurrency:
+  group: staging-scheduled-release
+  cancel-in-progress: false
+
+
+jobs:
+
+  release:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # ============================================================
+      # CHECKOUT
+      # ============================================================
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+
+      # ============================================================
+      # CONFIGURE GIT
+      # ============================================================
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+
+      # ============================================================
+      # FETCH MAIN + STAGING
+      # ============================================================
+
+      - name: Fetch branches
+        run: |
+          git fetch origin main
+          git fetch origin staging
+
+
+      # ============================================================
+      # CHECK staging/update.json
+      # ============================================================
+
+      - name: Check update.json
+        id: update
+        shell: bash
+        run: |
+
+          if ! git cat-file -e origin/staging:update.json 2>/dev/null; then
+            echo "ERROR: staging/update.json was not found."
+            exit 1
+          fi
+
+          git show origin/staging:update.json > /tmp/update.json
+
+          echo "============================================"
+          echo "staging/update.json"
+          echo "============================================"
+
+          cat /tmp/update.json
+
+          echo "============================================"
+
+
+          VERSION=$(python3 -c '
+          import json
+          with open("/tmp/update.json", encoding="utf-8") as f:
+              print(json.load(f).get("version", ""))
+          ')
+
+          UPDATE_NAME=$(python3 -c '
+          import json
+          with open("/tmp/update.json", encoding="utf-8") as f:
+              print(json.load(f).get("updateName", ""))
+          ')
+
+          RELEASE_DATE=$(python3 -c '
+          import json
+          with open("/tmp/update.json", encoding="utf-8") as f:
+              print(json.load(f).get("releaseDate", ""))
+          ')
+
+          RELEASE_TIME=$(python3 -c '
+          import json
+          with open("/tmp/update.json", encoding="utf-8") as f:
+              print(json.load(f).get("releaseTime", ""))
+          ')
+
+          STATUS=$(python3 -c '
+          import json
+          with open("/tmp/update.json", encoding="utf-8") as f:
+              print(json.load(f).get("status", ""))
+          ')
+
+
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "update_name=$UPDATE_NAME" >> "$GITHUB_OUTPUT"
+          echo "release_date=$RELEASE_DATE" >> "$GITHUB_OUTPUT"
+          echo "release_time=$RELEASE_TIME" >> "$GITHUB_OUTPUT"
+          echo "status=$STATUS" >> "$GITHUB_OUTPUT"
+
+
+      # ============================================================
+      # VALIDATE update.json
+      # ============================================================
+
+      - name: Validate update
+        shell: bash
+        run: |
+
+          if [ -z "${{ steps.update.outputs.version }}" ]; then
+            echo "ERROR: version is missing."
+            exit 1
+          fi
+
+          if [ -z "${{ steps.update.outputs.update_name }}" ]; then
+            echo "ERROR: updateName is missing."
+            exit 1
+          fi
+
+          if [ -z "${{ steps.update.outputs.release_date }}" ]; then
+            echo "ERROR: releaseDate is missing."
+            exit 1
+          fi
+
+          if [ -z "${{ steps.update.outputs.release_time }}" ]; then
+            echo "ERROR: releaseTime is missing."
+            exit 1
+          fi
+
+
+          echo "============================================"
+          echo "UPDATE INFORMATION"
+          echo "============================================"
+          echo "Version:      ${{ steps.update.outputs.version }}"
+          echo "Name:         ${{ steps.update.outputs.update_name }}"
+          echo "Release Date: ${{ steps.update.outputs.release_date }}"
+          echo "Release Time: ${{ steps.update.outputs.release_time }}"
+          echo "Status:       ${{ steps.update.outputs.status }}"
+          echo "============================================"
+
+
+      # ============================================================
+      # CHECK RELEASE TIME
+      #
+      # Philippine Time = UTC+8
+      # ============================================================
+
+      - name: Check release time
+        id: release_check
+        shell: bash
+        run: |
+
+          python3 << 'PY'
+
+          import json
+          import os
+
+          from datetime import (
+              datetime,
+              timezone,
+              timedelta
+          )
+
+
+          # --------------------------------------------------------
+          # READ JSON
+          # --------------------------------------------------------
+
+          with open(
+              "/tmp/update.json",
+              "r",
+              encoding="utf-8"
+          ) as file:
+
+              data = json.load(file)
+
+
+          release_date = data.get("releaseDate")
+          release_time = data.get("releaseTime")
+
+
+          if not release_date:
+              print("ERROR: releaseDate is missing.")
+              raise SystemExit(1)
+
+
+          if not release_time:
+              print("ERROR: releaseTime is missing.")
+              raise SystemExit(1)
+
+
+          # --------------------------------------------------------
+          # PHILIPPINE TIME
+          # UTC+8
+          # --------------------------------------------------------
+
+          ph_timezone = timezone(
+              timedelta(hours=8)
+          )
+
+
+          release = datetime.fromisoformat(
+              f"{release_date}T{release_time}:00+08:00"
+          )
+
+
+          now = datetime.now(
+              ph_timezone
+          )
+
+
+          print(
+              "Current PH time:",
+              now.isoformat()
+          )
+
+          print(
+              "Release PH time:",
+              release.isoformat()
+          )
+
+
+          # --------------------------------------------------------
+          # CHECK
+          # --------------------------------------------------------
+
+          if now >= release:
+
+              print(
+                  "RELEASE TIME REACHED"
+              )
+
+              with open(
+                  os.environ["GITHUB_OUTPUT"],
+                  "a",
+                  encoding="utf-8"
+              ) as output:
+
+                  output.write(
+                      "ready=true\n"
+                  )
+
+          else:
+
+              print(
+                  "Release is not due yet."
+              )
+
+              with open(
+                  os.environ["GITHUB_OUTPUT"],
+                  "a",
+                  encoding="utf-8"
+              ) as output:
+
+                  output.write(
+                      "ready=false\n"
+                  )
+
+          PY
+
+
+      # ============================================================
+      # NOT READY
+      # ============================================================
+
+      - name: Release not ready
+        if: steps.release_check.outputs.ready != 'true'
+        run: |
+
+          echo "============================================"
+          echo "RELEASE NOT READY"
+          echo "============================================"
+          echo "The scheduled release time has not arrived."
+          echo "Waiting for the next scheduled check."
+          echo "============================================"
+
+
+      # ============================================================
+      # SWITCH TO MAIN
+      # ============================================================
+
+      - name: Switch to main
+        if: steps.release_check.outputs.ready == 'true'
+        run: |
+
+          git checkout main
+
+          git reset --hard origin/main
+
+
+      # ============================================================
+      # MERGE STAGING → MAIN
+      # ============================================================
+
+      - name: Merge staging into main
+        if: steps.release_check.outputs.ready == 'true'
+        run: |
+
+          git merge origin/staging \
+            --no-ff \
+            -m "Release v${{ steps.update.outputs.version }}"
+
+
+      # ============================================================
+      # REMOVE update.json FROM MAIN
+      # ============================================================
+
+      - name: Remove update.json from main
+        if: steps.release_check.outputs.ready == 'true'
+        run: |
+
+          if [ -f "update.json" ]; then
+
+            git rm update.json
+
+          else
+
+            echo "update.json is not present in main."
+
+          fi
+
+
+      # ============================================================
+      # CREATE version.json
+      # ============================================================
+
+      - name: Create version.json
+        if: steps.release_check.outputs.ready == 'true'
+        shell: bash
+        run: |
+
+          cat > version.json << EOF
+          {
+            "version": "${{ steps.update.outputs.version }}",
+            "updateName": "${{ steps.update.outputs.update_name }}",
+            "releaseDate": "${{ steps.update.outputs.release_date }}",
+            "releaseTime": "${{ steps.update.outputs.release_time }}",
+            "status": "released"
+          }
+          EOF
+
+
+          echo "============================================"
+          echo "version.json"
+          echo "============================================"
+
+          cat version.json
+
+          echo "============================================"
+
+
+      # ============================================================
+      # COMMIT
+      # ============================================================
+
+      - name: Commit release
+        if: steps.release_check.outputs.ready == 'true'
+        shell: bash
+        run: |
+
+          git add version.json
+
+          if ! git diff --cached --quiet; then
+
+            git commit \
+              -m "Release v${{ steps.update.outputs.version }}"
+
+          else
+
+            echo "No version.json changes to commit."
+
+          fi
+
+
+      # ============================================================
+      # PUSH MAIN
+      # ============================================================
+
+      - name: Push release to main
+        if: steps.release_check.outputs.ready == 'true'
+        run: |
+
+          git push origin main
+
+
+      # ============================================================
+      # SUCCESS
+      # ============================================================
+
+      - name: Release completed
+        if: steps.release_check.outputs.ready == 'true'
+        run: |
+
+          echo ""
+          echo "============================================"
+          echo "UPDATE RELEASED SUCCESSFULLY"
+          echo "============================================"
+          echo "Version:      ${{ steps.update.outputs.version }}"
+          echo "Name:         ${{ steps.update.outputs.update_name }}"
+          echo "Release Date: ${{ steps.update.outputs.release_date }}"
+          echo "Release Time: ${{ steps.update.outputs.release_time }}"
+          echo "Source:       staging/update.json"
+          echo "Target:       main"
+          echo "Repository:   Golden-Pride-Hub"
+          echo "============================================"
