@@ -2,17 +2,13 @@
 <html lang="en">
 
 <head>
-
   <meta charset="UTF-8">
-
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>
-    Golden Pride Hub | Golden Pride Philippines
-  </title>
+  <title>Golden Pride Hub | Golden Pride Philippines</title>
 
   <meta
     name="description"
@@ -49,2779 +45,1533 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
   >
 
+  <style>
+
+    /* ============================================================
+       LOADING SCREEN
+       ============================================================ */
+
+    #loading-screen {
+      position: fixed;
+      inset: 0;
+
+      z-index: 99999;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: #0d0d0d;
+
+      opacity: 1;
+      visibility: visible;
+
+      pointer-events: auto;
+
+      transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+    }
+
+    #loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+
+    /* ============================================================
+       LOADING SPINNER
+       ============================================================ */
+
+    #loading-screen .spinner {
+      width: 50px;
+      height: 50px;
+
+      border: 4px solid rgba(255, 215, 0, 0.2);
+      border-top-color: #ffd700;
+
+      border-radius: 50%;
+
+      animation:
+        loading-spin 0.8s linear infinite;
+    }
+
+    @keyframes loading-spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+
+    /* ============================================================
+       RELEASE BANNER
+       ============================================================ */
+
+    #release-banner {
+      text-align: center;
+      padding: 12px 16px;
+
+      background:
+        linear-gradient(
+          90deg,
+          #ffd700,
+          #ffe66d,
+          #ffd700
+        );
+
+      color: #0d0d0d;
+
+      font-weight: 700;
+
+      box-shadow:
+        0 4px 20px
+        rgba(255, 215, 0, 0.18);
+
+      position: relative;
+      z-index: 1000;
+    }
+
+
+    /* ============================================================
+       COUNTDOWN RESPONSIVE
+       ============================================================ */
+
+    @media (max-width: 600px) {
+
+      #update-countdown {
+        grid-template-columns:
+          repeat(2, 1fr) !important;
+      }
+
+    }
+
+  </style>
+
 </head>
 
 
 <body class="landing-page">
 
 
-<!-- ============================================================
-     GOLD BUBBLES
-     ============================================================ -->
+  <!-- ============================================================
+       GOLD BUBBLES
+       ============================================================ -->
 
-<div
-  class="gold-bubbles"
-  aria-hidden="true"
->
-
-  <span class="bubble bubble-1"></span>
-  <span class="bubble bubble-2"></span>
-  <span class="bubble bubble-3"></span>
-  <span class="bubble bubble-4"></span>
-  <span class="bubble bubble-5"></span>
-  <span class="bubble bubble-6"></span>
-  <span class="bubble bubble-7"></span>
-  <span class="bubble bubble-8"></span>
-
-</div>
-
-
-<!-- ============================================================
-     RELEASE BANNER
-     SOURCE:
-     main/version.json
-     ============================================================ -->
-
-<div
-  id="release-banner"
-  style="
-    text-align:center;
-    padding:12px 16px;
-    background:linear-gradient(
-      90deg,
-      #ffd700,
-      #ffe66d,
-      #ffd700
-    );
-    color:#0d0d0d;
-    font-weight:700;
-    box-shadow:0 4px 20px rgba(255,215,0,.18);
-    position:relative;
-    z-index:1000;
-  "
->
-
-  <span id="release-banner-text">
-    Loading latest release...
-  </span>
-
-</div>
-
-
-<!-- ============================================================
-     LOADING SCREEN
-     ============================================================ -->
-
-<div id="loading-screen">
-
-  <div class="spinner"></div>
-
-</div>
-
-
-<!-- ============================================================
-     NAVBAR
-     ============================================================ -->
-
-<nav class="navbar">
-
-  <a
-    href="index.html"
-    class="navbar-logo"
+  <div
+    class="gold-bubbles"
+    aria-hidden="true"
   >
 
-    <img
-      src="assets/logo.png"
-      alt="Golden Pride Hub logo"
-      onerror="this.style.display='none'"
-    >
-
-    <span>
-
-      Golden Pride
-      <span class="text-gold">
-        Hub
-      </span>
-
-    </span>
-
-  </a>
-
-
-  <button
-    class="nav-toggle"
-    aria-label="Toggle navigation"
-    type="button"
-  >
-
-    <span></span>
-    <span></span>
-    <span></span>
-
-  </button>
-
-
-  <ul class="nav-menu">
-
-    <li>
-
-      <a
-        href="index.html"
-        class="active"
-      >
-        Home
-      </a>
-
-    </li>
-
-
-    <li>
-
-      <a href="#about">
-        About
-      </a>
-
-    </li>
-
-
-    <li>
-
-      <a href="#announcements">
-        Announcements
-      </a>
-
-    </li>
-
-
-    <li>
-
-      <a href="#scheduled-update">
-        Update
-      </a>
-
-    </li>
-
-
-    <li class="nav-actions">
-
-      <a
-        href="login.html"
-        class="btn btn-outline"
-      >
-        Login
-      </a>
-
-
-      <a
-        href="register.html"
-        class="btn btn-primary"
-      >
-        Register
-      </a>
-
-    </li>
-
-  </ul>
-
-</nav>
-
-
-<!-- ============================================================
-     HERO
-     ============================================================ -->
-
-<header class="hero">
-
-  <div class="hero-content fade-in">
-
-    <p class="hero-eyebrow">
-      Golden Pride Philippines
-    </p>
-
-
-    <h1>
-
-      Welcome to
-
-      <span class="text-gold">
-        Golden Pride Hub
-      </span>
-
-    </h1>
-
-
-    <p>
-
-      The official community platform of
-      Golden Pride Philippines —
-      stay updated with announcements,
-      events, achievements,
-      and connect with fellow members.
-
-    </p>
-
-
-    <div class="hero-actions">
-
-      <a
-        href="register.html"
-        class="btn btn-primary"
-      >
-
-        <i class="fa-solid fa-user-plus"></i>
-
-        Join the Pride
-
-      </a>
-
-
-      <a
-        href="login.html"
-        class="btn btn-outline"
-      >
-
-        <i class="fa-solid fa-right-to-bracket"></i>
-
-        Member Login
-
-      </a>
-
-    </div>
+    <span class="bubble bubble-1"></span>
+    <span class="bubble bubble-2"></span>
+    <span class="bubble bubble-3"></span>
+    <span class="bubble bubble-4"></span>
+    <span class="bubble bubble-5"></span>
+    <span class="bubble bubble-6"></span>
+    <span class="bubble bubble-7"></span>
+    <span class="bubble bubble-8"></span>
 
   </div>
 
-</header>
+
+  <!-- ============================================================
+       RELEASE BANNER
+       SOURCE: main/version.json
+       ============================================================ -->
+
+  <div id="release-banner">
+
+    <span id="release-banner-text">
+      Loading latest release...
+    </span>
+
+  </div>
 
 
-<!-- ============================================================
-     ABOUT
-     ============================================================ -->
+  <!-- ============================================================
+       LOADING SCREEN
+       ============================================================ -->
 
-<section
-  class="about-section container"
-  id="about"
->
+  <div id="loading-screen">
 
-  <div class="about-grid">
+    <div class="spinner"></div>
+
+  </div>
 
 
-    <div class="slide-in">
+  <!-- ============================================================
+       NAVBAR
+       ============================================================ -->
+
+  <nav class="navbar">
+
+    <a
+      href="index.html"
+      class="navbar-logo"
+    >
+
+      <img
+        src="assets/logo.png"
+        alt="Golden Pride Hub logo"
+        onerror="this.style.display='none'"
+      >
+
+      <span>
+        Golden Pride
+        <span class="text-gold">Hub</span>
+      </span>
+
+    </a>
+
+
+    <button
+      class="nav-toggle"
+      aria-label="Toggle navigation"
+      type="button"
+    >
+
+      <span></span>
+      <span></span>
+      <span></span>
+
+    </button>
+
+
+    <ul class="nav-menu">
+
+      <li>
+
+        <a
+          href="index.html"
+          class="active"
+        >
+          Home
+        </a>
+
+      </li>
+
+
+      <li>
+
+        <a href="#about">
+          About
+        </a>
+
+      </li>
+
+
+      <li>
+
+        <a href="#announcements">
+          Announcements
+        </a>
+
+      </li>
+
+
+      <li>
+
+        <a href="#scheduled-update">
+          Update
+        </a>
+
+      </li>
+
+
+      <li class="nav-actions">
+
+        <a
+          href="login.html"
+          class="btn btn-outline"
+        >
+          Login
+        </a>
+
+
+        <a
+          href="register.html"
+          class="btn btn-primary"
+        >
+          Register
+        </a>
+
+      </li>
+
+    </ul>
+
+  </nav>
+
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+
+  <header class="hero">
+
+    <div class="hero-content fade-in">
 
       <p class="hero-eyebrow">
-        About Us
+        Golden Pride Philippines
       </p>
 
 
-      <h2 class="section-title">
-        Who We Are
-      </h2>
+      <h1>
+
+        Welcome to
+
+        <span class="text-gold">
+          Golden Pride Hub
+        </span>
+
+      </h1>
 
 
-      <p class="section-subtitle">
+      <p>
 
-        Golden Pride Philippines is a community built on
-        excellence, unity, and pride. Golden Pride Hub is our
-        digital home — where members stay connected,
-        informed, and celebrated.
-
-        From official announcements to community events
-        and shared achievements, this is where the Pride
-        comes together.
+        The official community platform of
+        Golden Pride Philippines —
+        stay updated with announcements,
+        events, achievements,
+        and connect with fellow members.
 
       </p>
 
 
-      <a
-        href="register.html"
-        class="btn btn-primary"
-      >
-        Become a Member
-      </a>
+      <div class="hero-actions">
+
+        <a
+          href="register.html"
+          class="btn btn-primary"
+        >
+
+          <i class="fa-solid fa-user-plus"></i>
+
+          Join the Pride
+
+        </a>
+
+
+        <a
+          href="login.html"
+          class="btn btn-outline"
+        >
+
+          <i class="fa-solid fa-right-to-bracket"></i>
+
+          Member Login
+
+        </a>
+
+      </div>
 
     </div>
 
+  </header>
 
-    <div class="glass card fade-in">
 
-      <h3>
+  <!-- ============================================================
+       ABOUT
+       ============================================================ -->
 
-        <i class="fa-solid fa-star text-gold"></i>
+  <section
+    class="about-section container"
+    id="about"
+  >
 
-        Our Values
+    <div class="about-grid">
 
+      <div class="slide-in">
+
+        <p class="hero-eyebrow">
+          About Us
+        </p>
+
+
+        <h2 class="section-title">
+          Who We Are
+        </h2>
+
+
+        <p class="section-subtitle">
+
+          Golden Pride Philippines is a community
+          built on excellence, unity, and pride.
+          Golden Pride Hub is our digital home —
+          where members stay connected,
+          informed, and celebrated.
+
+          From official announcements to
+          community events and shared achievements,
+          this is where the Pride comes together.
+
+        </p>
+
+
+        <a
+          href="register.html"
+          class="btn btn-primary"
+        >
+          Become a Member
+        </a>
+
+      </div>
+
+
+      <div class="glass card fade-in">
+
+        <h3>
+
+          <i class="fa-solid fa-star text-gold"></i>
+
+          Our Values
+
+        </h3>
+
+
+        <p
+          style="
+            margin-top:12px;
+            color:var(--color-gray);
+          "
+        >
+
+          Excellence, unity, and pride guide
+          everything we do as a community —
+          from local events to shared celebrations
+          of our members' achievements.
+
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ============================================================
+       SCHEDULED UPDATE
+       SOURCE:
+       GitHub staging/update.json
+       ============================================================ -->
+
+  <section
+    class="container"
+    id="scheduled-update"
+    style="padding-bottom:80px;"
+  >
+
+    <p class="hero-eyebrow">
+      Upcoming Update
+    </p>
+
+
+    <h2 class="section-title">
+      Scheduled Update
+    </h2>
+
+
+    <p
+      id="update-description"
+      class="section-subtitle"
+    >
+      Loading update information...
+    </p>
+
+
+    <div
+      class="glass card"
+      style="
+        text-align:center;
+        padding:30px;
+      "
+    >
+
+      <p
+        style="
+          color:var(--color-gold);
+          font-size:.8rem;
+          font-weight:700;
+          letter-spacing:3px;
+          margin-bottom:10px;
+        "
+      >
+        NEXT RELEASE
+      </p>
+
+
+      <h3
+        id="update-version"
+        class="text-gold"
+      >
+        UPDATE
       </h3>
 
 
       <p
+        id="update-name"
         style="
-          margin-top:12px;
-          color:var(--color-gray);
+          margin:10px auto 24px;
+          color:var(--color-gray-light);
+        "
+      >
+        Loading...
+      </p>
+
+
+      <!-- ========================================================
+           COUNTDOWN
+           ======================================================== -->
+
+      <div
+        id="update-countdown"
+        style="
+          display:grid;
+          grid-template-columns:
+            repeat(4,1fr);
+          gap:12px;
+          max-width:700px;
+          margin:0 auto 24px;
         "
       >
 
-        Excellence, unity, and pride guide everything
-        we do as a community — from local events to
-        shared celebrations of our members' achievements.
 
+        <!-- DAYS -->
+
+        <div
+          class="glass"
+          style="padding:18px 10px;"
+        >
+
+          <strong
+            id="count-days"
+            style="
+              display:block;
+              color:var(--color-gold);
+              font-size:2rem;
+              font-weight:800;
+            "
+          >
+            00
+          </strong>
+
+
+          <span
+            style="
+              color:var(--color-gray);
+              font-size:.75rem;
+            "
+          >
+            Days
+          </span>
+
+        </div>
+
+
+        <!-- HOURS -->
+
+        <div
+          class="glass"
+          style="padding:18px 10px;"
+        >
+
+          <strong
+            id="count-hours"
+            style="
+              display:block;
+              color:var(--color-gold);
+              font-size:2rem;
+              font-weight:800;
+            "
+          >
+            00
+          </strong>
+
+
+          <span
+            style="
+              color:var(--color-gray);
+              font-size:.75rem;
+            "
+          >
+            Hours
+          </span>
+
+        </div>
+
+
+        <!-- MINUTES -->
+
+        <div
+          class="glass"
+          style="padding:18px 10px;"
+        >
+
+          <strong
+            id="count-minutes"
+            style="
+              display:block;
+              color:var(--color-gold);
+              font-size:2rem;
+              font-weight:800;
+            "
+          >
+            00
+          </strong>
+
+
+          <span
+            style="
+              color:var(--color-gray);
+              font-size:.75rem;
+            "
+          >
+            Minutes
+          </span>
+
+        </div>
+
+
+        <!-- SECONDS -->
+
+        <div
+          class="glass"
+          style="padding:18px 10px;"
+        >
+
+          <strong
+            id="count-seconds"
+            style="
+              display:block;
+              color:var(--color-gold);
+              font-size:2rem;
+              font-weight:800;
+            "
+          >
+            00
+          </strong>
+
+
+          <span
+            style="
+              color:var(--color-gray);
+              font-size:.75rem;
+            "
+          >
+            Seconds
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <p
+        id="update-status"
+        style="
+          color:var(--color-gray);
+          font-size:.85rem;
+        "
+      >
+        Loading release schedule...
       </p>
 
     </div>
 
-  </div>
-
-</section>
+  </section>
 
 
-<!-- ============================================================
-     SCHEDULED UPDATE
-     SOURCE:
-     staging/update.json
-     
-     Repository:
-     crislorencenenez7-byte/Golden-Pride-Hub
-     
-     Branch:
-     staging
-     
-     File:
-     update.json
-     ============================================================ -->
+  <!-- ============================================================
+       ANNOUNCEMENTS
+       ============================================================ -->
 
-<section
-  class="container"
-  id="scheduled-update"
-  style="padding-bottom:80px;"
->
-
-
-  <p class="hero-eyebrow">
-    Upcoming Update
-  </p>
-
-
-  <h2 class="section-title">
-    Scheduled Update
-  </h2>
-
-
-  <p
-    id="update-description"
-    class="section-subtitle"
-  >
-    Loading update information...
-  </p>
-
-
-  <div
-    class="glass card"
-    style="
-      text-align:center;
-      padding:30px;
-    "
+  <section
+    class="container"
+    id="announcements"
+    style="padding-bottom:80px;"
   >
 
-
-    <p
-      style="
-        color:var(--color-gold);
-        font-size:.8rem;
-        font-weight:700;
-        letter-spacing:3px;
-        margin-bottom:10px;
-      "
-    >
-      NEXT RELEASE
+    <p class="hero-eyebrow">
+      Stay Updated
     </p>
 
 
-    <h3
-      id="update-version"
-      class="text-gold"
-    >
-      UPDATE
-    </h3>
+    <h2 class="section-title">
+      Latest Announcement
+    </h2>
 
 
-    <p
-      id="update-name"
-      style="
-        margin:10px auto 24px;
-        color:var(--color-gray-light);
-      "
-    >
-      Loading...
+    <p class="section-subtitle">
+      A quick look at what's new in the community.
     </p>
 
-
-    <!-- ========================================================
-         COUNTDOWN
-         ======================================================== -->
 
     <div
-      id="update-countdown"
-      style="
-        display:grid;
-        grid-template-columns:repeat(4,1fr);
-        gap:12px;
-        max-width:700px;
-        margin:0 auto 24px;
-      "
-    >
+      id="latest-announcement"
+      class="grid grid-3"
+    ></div>
+
+  </section>
 
 
-      <!-- DAYS -->
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
 
-      <div
-        class="glass"
-        style="padding:18px 10px;"
-      >
+  <footer class="site-footer">
 
-        <strong
-          id="count-days"
-          style="
-            display:block;
-            color:var(--color-gold);
-            font-size:2rem;
-            font-weight:800;
-          "
-        >
-          00
-        </strong>
-
-
-        <span
-          style="
-            color:var(--color-gray);
-            font-size:.75rem;
-          "
-        >
-          Days
-        </span>
-
-      </div>
-
-
-      <!-- HOURS -->
-
-      <div
-        class="glass"
-        style="padding:18px 10px;"
-      >
-
-        <strong
-          id="count-hours"
-          style="
-            display:block;
-            color:var(--color-gold);
-            font-size:2rem;
-            font-weight:800;
-          "
-        >
-          00
-        </strong>
-
-
-        <span
-          style="
-            color:var(--color-gray);
-            font-size:.75rem;
-          "
-        >
-          Hours
-        </span>
-
-      </div>
-
-
-      <!-- MINUTES -->
-
-      <div
-        class="glass"
-        style="padding:18px 10px;"
-      >
-
-        <strong
-          id="count-minutes"
-          style="
-            display:block;
-            color:var(--color-gold);
-            font-size:2rem;
-            font-weight:800;
-          "
-        >
-          00
-        </strong>
-
-
-        <span
-          style="
-            color:var(--color-gray);
-            font-size:.75rem;
-          "
-        >
-          Minutes
-        </span>
-
-      </div>
-
-
-      <!-- SECONDS -->
-
-      <div
-        class="glass"
-        style="padding:18px 10px;"
-      >
-
-        <strong
-          id="count-seconds"
-          style="
-            display:block;
-            color:var(--color-gold);
-            font-size:2rem;
-            font-weight:800;
-          "
-        >
-          00
-        </strong>
-
-
-        <span
-          style="
-            color:var(--color-gray);
-            font-size:.75rem;
-          "
-        >
-          Seconds
-        </span>
-
-      </div>
-
-    </div>
-
-
-    <p
-      id="update-status"
-      style="
-        color:var(--color-gray);
-        font-size:.85rem;
-      "
-    >
-      Loading release schedule...
+    <p class="footer-logo">
+      Golden Pride Hub
     </p>
 
 
-  </div>
+    <p>
 
-</section>
+      &copy;
 
+      <span id="year"></span>
 
-<!-- ============================================================
-     ANNOUNCEMENTS
-     ============================================================ -->
+      Golden Pride Philippines.
+      All rights reserved.
 
-<section
-  class="container"
-  id="announcements"
-  style="padding-bottom:80px;"
->
+    </p>
 
+  </footer>
 
-  <p class="hero-eyebrow">
-    Stay Updated
-  </p>
 
+  <!-- ============================================================
+       SCROLL TOP
+       ============================================================ -->
 
-  <h2 class="section-title">
-    Latest Announcement
-  </h2>
+  <button
+    id="scroll-top"
+    aria-label="Scroll to top"
+    type="button"
+  >
 
+    <i class="fa-solid fa-arrow-up"></i>
 
-  <p class="section-subtitle">
+  </button>
 
-    A quick look at what's new in the community.
 
-  </p>
+  <!-- ============================================================
+       FIREBASE
+       ============================================================ -->
 
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 
-  <div
-    id="latest-announcement"
-    class="grid grid-3"
-  ></div>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-</section>
+  <script src="js/firebase-config.js"></script>
 
+  <script src="js/app.js"></script>
 
-<!-- ============================================================
-     FOOTER
-     ============================================================ -->
+  <script src="js/dashboard.js"></script>
 
-<footer class="site-footer">
 
+  <!-- ============================================================
+       PAGE + RELEASE + COUNTDOWN
+       ============================================================ -->
 
-  <p class="footer-logo">
-    Golden Pride Hub
-  </p>
+  <script>
 
+    /* ============================================================
+       YEAR
+       ============================================================ */
 
-  <p>
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
 
-    &copy;
 
-    <span id="year"></span>
+    /* ============================================================
+       LOADING SCREEN FIX
+       ============================================================ */
 
-    Golden Pride Philippines.
+    function hideLoadingScreen() {
 
-    All rights reserved.
+      const loadingScreen =
+        document.getElementById("loading-screen");
 
-  </p>
-
-
-</footer>
-
-
-<!-- ============================================================
-     SCROLL TOP
-     ============================================================ -->
-
-<button
-  id="scroll-top"
-  aria-label="Scroll to top"
-  type="button"
->
-
-  <i class="fa-solid fa-arrow-up"></i>
-
-</button>
-
-
-<!-- ============================================================
-     FIREBASE
-     ============================================================ -->
-
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-
-<script src="js/firebase-config.js"></script>
-
-<script src="js/app.js"></script>
-
-<script src="js/dashboard.js"></script>
-
-
-<!-- ============================================================
-     PAGE + RELEASE + COUNTDOWN
-     ============================================================ -->
-
-<script>
-
-
-/* ============================================================
-   YEAR
-   ============================================================ */
-
-const yearElement =
-  document.getElementById("year");
-
-
-if (yearElement) {
-
-  yearElement.textContent =
-    new Date().getFullYear();
-
-}
-
-
-/* ============================================================
-   VERSION BANNER
-   SOURCE:
-   main/version.json
-   ============================================================ */
-
-async function loadReleaseBanner() {
-
-
-  const banner =
-    document.getElementById(
-      "release-banner-text"
-    );
-
-
-  if (!banner) {
-    return;
-  }
-
-
-  try {
-
-
-    const response =
-      await fetch(
-        "version.json?ts=" +
-        Date.now(),
-        {
-          method: "GET",
-          cache: "no-store"
-        }
-      );
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        `version.json HTTP ${response.status}`
-      );
-
-    }
-
-
-    const data =
-      await response.json();
-
-
-    const version =
-      data.version
-        ? `Version ${data.version}`
-        : "";
-
-
-    const updateName =
-      data.updateName ||
-      "Golden Pride Hub";
-
-
-    banner.textContent =
-      version
-        ? `${updateName} • ${version}`
-        : updateName;
-
-
-  }
-
-
-  catch (error) {
-
-
-    console.error(
-      "Version banner error:",
-      error
-    );
-
-
-    banner.textContent =
-      "Golden Pride Hub";
-
-  }
-
-}
-
-
-/* ============================================================
-   PARSE PHILIPPINE TIME
-   ============================================================
-
-   Accepts:
-
-   5:30
-   05:30
-   5:30:00
-   05:30:00
-
-   Converts to:
-
-   YYYY-MM-DDTHH:MM:SS+08:00
-
-   ============================================================ */
-
-function parsePhilippineTime(
-  date,
-  time
-) {
-
-
-  const parts =
-    String(time)
-      .trim()
-      .split(":");
-
-
-  if (
-    parts.length !== 2 &&
-    parts.length !== 3
-  ) {
-
-    throw new Error(
-      `Invalid releaseTime: ${time}`
-    );
-
-  }
-
-
-  const hour =
-    Number(parts[0]);
-
-
-  const minute =
-    Number(parts[1]);
-
-
-  const second =
-    parts.length === 3
-      ? Number(parts[2])
-      : 0;
-
-
-  if (
-    !Number.isInteger(hour) ||
-    !Number.isInteger(minute) ||
-    !Number.isInteger(second)
-  ) {
-
-    throw new Error(
-      `Invalid releaseTime: ${time}`
-    );
-
-  }
-
-
-  if (
-    hour < 0 ||
-    hour > 23
-  ) {
-
-    throw new Error(
-      `Invalid hour: ${hour}`
-    );
-
-  }
-
-
-  if (
-    minute < 0 ||
-    minute > 59
-  ) {
-
-    throw new Error(
-      `Invalid minute: ${minute}`
-    );
-
-  }
-
-
-  if (
-    second < 0 ||
-    second > 59
-  ) {
-
-    throw new Error(
-      `Invalid second: ${second}`
-    );
-
-  }
-
-
-  const normalizedHour =
-    String(hour)
-      .padStart(2, "0");
-
-
-  const normalizedMinute =
-    String(minute)
-      .padStart(2, "0");
-
-
-  const normalizedSecond =
-    String(second)
-      .padStart(2, "0");
-
-
-  const releaseString =
-    `${date}T` +
-    `${normalizedHour}:` +
-    `${normalizedMinute}:` +
-    `${normalizedSecond}` +
-    `+08:00`;
-
-
-  console.log(
-    "Philippine release time:",
-    releaseString
-  );
-
-
-  const dateObject =
-    new Date(
-      releaseString
-    );
-
-
-  if (
-    Number.isNaN(
-      dateObject.getTime()
-    )
-  ) {
-
-    throw new Error(
-      `Invalid release date/time: ${releaseString}`
-    );
-
-  }
-
-
-  return dateObject;
-
-}
-
-
-/* ============================================================
-   SCHEDULED UPDATE
-   SOURCE:
-   GitHub staging branch
-   ============================================================ */
-
-async function loadScheduledUpdate() {
-
-
-  /* ==========================================================
-     HTML ELEMENTS
-     ========================================================== */
-
-  const updateName =
-    document.getElementById(
-      "update-name"
-    );
-
-
-  const updateVersion =
-    document.getElementById(
-      "update-version"
-    );
-
-
-  const description =
-    document.getElementById(
-      "update-description"
-    );
-
-
-  const status =
-    document.getElementById(
-      "update-status"
-    );
-
-
-  const days =
-    document.getElementById(
-      "count-days"
-    );
-
-
-  const hours =
-    document.getElementById(
-      "count-hours"
-    );
-
-
-  const minutes =
-    document.getElementById(
-      "count-minutes"
-    );
-
-
-  const seconds =
-    document.getElementById(
-      "count-seconds"
-    );
-
-
-  /* ==========================================================
-     VALIDATE ELEMENTS
-     ========================================================== */
-
-  if (
-    !updateName ||
-    !updateVersion ||
-    !description ||
-    !status ||
-    !days ||
-    !hours ||
-    !minutes ||
-    !seconds
-  ) {
-
-    console.error(
-      "Countdown HTML elements are missing."
-    );
-
-    return;
-
-  }
-
-
-  /* ==========================================================
-     GITHUB RAW URL
-
-     Repository:
-     crislorencenenez7-byte/Golden-Pride-Hub
-
-     Branch:
-     staging
-
-     File:
-     update.json
-
-     ========================================================== */
-
-  const UPDATE_URL =
-    "https://raw.githubusercontent.com/" +
-    "crislorencenenez7-byte/" +
-    "Golden-Pride-Hub/" +
-    "staging/" +
-    "update.json?ts=" +
-    Date.now();
-
-
-  console.log(
-    "============================================"
-  );
-
-
-  console.log(
-    "Loading scheduled update:"
-  );
-
-
-  console.log(
-    UPDATE_URL
-  );
-
-
-  console.log(
-    "============================================"
-  );
-
-
-  try {
-
-
-    /* ========================================================
-       FETCH
-       ======================================================== */
-
-    const response =
-      await fetch(
-        UPDATE_URL,
-        {
-          method: "GET",
-          cache: "no-store"
-        }
-      );
-
-
-    console.log(
-      "update.json HTTP status:",
-      response.status
-    );
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        `staging/update.json HTTP ${response.status}`
-      );
-
-    }
-
-
-    /* ========================================================
-       READ JSON
-       ======================================================== */
-
-    const data =
-      await response.json();
-
-
-    console.log(
-      "Loaded staging/update.json:",
-      data
-    );
-
-
-    /* ========================================================
-       VALIDATE JSON
-       ======================================================== */
-
-    if (
-      !data.version
-    ) {
-
-      throw new Error(
-        "Missing version"
-      );
-
-    }
-
-
-    if (
-      !data.updateName
-    ) {
-
-      throw new Error(
-        "Missing updateName"
-      );
-
-    }
-
-
-    if (
-      !data.releaseDate
-    ) {
-
-      throw new Error(
-        "Missing releaseDate"
-      );
-
-    }
-
-
-    if (
-      !data.releaseTime
-    ) {
-
-      throw new Error(
-        "Missing releaseTime"
-      );
-
-    }
-
-
-    /* ========================================================
-       DISPLAY UPDATE
-       ======================================================== */
-
-    updateVersion.textContent =
-      `UPDATE ${data.version}`;
-
-
-    updateName.textContent =
-      data.updateName;
-
-
-    description.textContent =
-      `Version ${data.version}`;
-
-
-    /* ========================================================
-       CREATE PHILIPPINE TIME
-       ======================================================== */
-
-    const releaseDate =
-      parsePhilippineTime(
-        data.releaseDate,
-        data.releaseTime
-      );
-
-
-    const releaseTimestamp =
-      releaseDate.getTime();
-
-
-    console.log(
-      "Release timestamp:",
-      releaseTimestamp
-    );
-
-
-    /* ========================================================
-       COUNTDOWN
-       ======================================================== */
-
-    function updateCountdown() {
-
-
-      const now =
-        Date.now();
-
-
-      const difference =
-        releaseTimestamp -
-        now;
-
-
-      /* ======================================================
-         RELEASED
-         ====================================================== */
-
-      if (
-        difference <= 0
-      ) {
-
-
-        days.textContent =
-          "00";
-
-
-        hours.textContent =
-          "00";
-
-
-        minutes.textContent =
-          "00";
-
-
-        seconds.textContent =
-          "00";
-
-
-        status.textContent =
-          `${data.updateName} • UPDATE IS NOW LIVE!`;
-
-
+      if (!loadingScreen) {
         return;
+      }
+
+      loadingScreen.classList.add("hidden");
+
+      setTimeout(function () {
+
+        loadingScreen.style.display = "none";
+
+      }, 350);
+
+    }
+
+
+    /*
+      Hide normally when everything is loaded.
+    */
+
+    window.addEventListener(
+      "load",
+      hideLoadingScreen
+    );
+
+
+    /*
+      Safety fallback.
+
+      Kahit magkaroon ng Firebase/network
+      problem, hindi permanenteng mai-stuck
+      ang loading screen.
+    */
+
+    setTimeout(
+      hideLoadingScreen,
+      3000
+    );
+
+
+    /* ============================================================
+       VERSION BANNER
+       SOURCE:
+       main/version.json
+       ============================================================ */
+
+    async function loadReleaseBanner() {
+
+      const banner =
+        document.getElementById(
+          "release-banner-text"
+        );
+
+
+      try {
+
+        const response =
+          await fetch(
+            "version.json?ts=" +
+            Date.now(),
+            {
+              method: "GET",
+              cache: "no-store"
+            }
+          );
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            `version.json HTTP ${response.status}`
+          );
+
+        }
+
+
+        const data =
+          await response.json();
+
+
+        const version =
+          data.version
+            ? `Version ${data.version}`
+            : "";
+
+
+        const updateName =
+          data.updateName ||
+          "Golden Pride Hub";
+
+
+        banner.textContent =
+          version
+            ? `${updateName} • ${version}`
+            : updateName;
+
 
       }
 
+      catch (error) {
 
-      /* ======================================================
-         TOTAL SECONDS
-         ====================================================== */
-
-      const totalSeconds =
-        Math.floor(
-          difference / 1000
+        console.error(
+          "Version banner error:",
+          error
         );
 
 
-      /* ======================================================
-         DAYS
-         ====================================================== */
+        banner.textContent =
+          "Golden Pride Hub";
 
-      const d =
-        Math.floor(
-          totalSeconds / 86400
+      }
+
+    }
+
+
+    /* ============================================================
+       SCHEDULED UPDATE
+       
+       SOURCE:
+       GitHub staging/update.json
+
+       Repository:
+       crislorencenenez7-byte/Golden-Pride-Hub
+
+       Branch:
+       staging
+
+       File:
+       update.json
+       ============================================================ */
+
+    async function loadScheduledUpdate() {
+
+
+      /* ==========================================================
+         HTML ELEMENTS
+         ========================================================== */
+
+      const updateName =
+        document.getElementById(
+          "update-name"
         );
 
 
-      /* ======================================================
-         HOURS
-         ====================================================== */
-
-      const h =
-        Math.floor(
-          (
-            totalSeconds % 86400
-          ) / 3600
+      const updateVersion =
+        document.getElementById(
+          "update-version"
         );
 
 
-      /* ======================================================
-         MINUTES
-         ====================================================== */
-
-      const m =
-        Math.floor(
-          (
-            totalSeconds % 3600
-          ) / 60
+      const description =
+        document.getElementById(
+          "update-description"
         );
 
 
-      /* ======================================================
-         SECONDS
-         ====================================================== */
+      const status =
+        document.getElementById(
+          "update-status"
+        );
 
-      const s =
-        totalSeconds % 60;
 
+      const days =
+        document.getElementById(
+          "count-days"
+        );
 
-      /* ======================================================
-         DISPLAY
-         ====================================================== */
 
-      days.textContent =
-        String(d)
-          .padStart(2, "0");
+      const hours =
+        document.getElementById(
+          "count-hours"
+        );
 
 
-      hours.textContent =
-        String(h)
-          .padStart(2, "0");
+      const minutes =
+        document.getElementById(
+          "count-minutes"
+        );
 
 
-      minutes.textContent =
-        String(m)
-          .padStart(2, "0");
+      const seconds =
+        document.getElementById(
+          "count-seconds"
+        );
 
 
-      seconds.textContent =
-        String(s)
-          .padStart(2, "0");
+      /* ==========================================================
+         GITHUB RAW URL
+         ========================================================== */
 
-
-      /* ======================================================
-         STATUS
-         ====================================================== */
-
-      status.textContent =
-        `Releasing ${data.releaseDate} ` +
-        `at ${data.releaseTime} PH`;
-
-    }
-
-
-    /* ========================================================
-       START COUNTDOWN
-       ======================================================== */
-
-    updateCountdown();
-
-
-    /* ========================================================
-       UPDATE EVERY SECOND
-       ======================================================== */
-
-    const countdownInterval =
-      setInterval(
-        updateCountdown,
-        1000
-      );
-
-
-    /* ========================================================
-       STOP INTERVAL AFTER RELEASE
-       ======================================================== */
-
-    if (
-      releaseTimestamp <= Date.now()
-    ) {
-
-      clearInterval(
-        countdownInterval
-      );
-
-    }
-
-
-  }
-
-
-  catch (error) {
-
-
-    console.error(
-      "Scheduled update error:",
-      error
-    );
-
-
-    /* ========================================================
-       ERROR DISPLAY
-       ======================================================== */
-
-    updateVersion.textContent =
-      "UPDATE";
-
-
-    updateName.textContent =
-      "Update schedule unavailable";
-
-
-    description.textContent =
-      "Unable to load scheduled update.";
-
-
-    days.textContent =
-      "--";
-
-
-    hours.textContent =
-      "--";
-
-
-    minutes.textContent =
-      "--";
-
-
-    seconds.textContent =
-      "--";
-
-
-    status.textContent =
-      "Could not read staging/update.json.";
-
-  }
-
-}
-
-
-/* ============================================================
-   ANNOUNCEMENT PREVIEW
-   ============================================================ */
-
-function initPreview() {
-
-
-  if (
-    typeof loadRecentAnnouncementPreview ===
-      "function" &&
-    typeof db !== "undefined"
-  ) {
-
-
-    loadRecentAnnouncementPreview();
-
-
-  }
-
-
-  else {
-
-
-    setTimeout(
-      initPreview,
-      300
-    );
-
-  }
-
-}
-
-
-/* ============================================================
-   START
-   ============================================================ */
-
-loadReleaseBanner();
-
-loadScheduledUpdate();
-
-
-if (
-  document.readyState ===
-  "loading"
-) {
-
-
-  document.addEventListener(
-    "DOMContentLoaded",
-    initPreview
-  );
-
-
-}
-
-
-else {
-
-
-  initPreview();
-
-}
-
-
-</script>
-
-
-</body>
-
-</html>
-</div>
-
-
-<!-- ============================================================
-     LOADING SCREEN
-     ============================================================ -->
-
-<div id="loading-screen">
-
-  <div class="spinner"></div>
-
-</div>
-
-
-<!-- ============================================================
-     NAVBAR
-     ============================================================ -->
-
-<nav class="navbar">
-
-  <a
-    href="index.html"
-    class="navbar-logo"
-  >
-
-    <img
-      src="assets/logo.png"
-      alt="Golden Pride Hub logo"
-      onerror="this.style.display='none'"
-    >
-
-    <span>
-
-      Golden Pride
-      <span class="text-gold">
-        Hub
-      </span>
-
-    </span>
-
-  </a>
-
-
-  <button
-    class="nav-toggle"
-    aria-label="Toggle navigation"
-    type="button"
-  >
-
-    <span></span>
-    <span></span>
-    <span></span>
-
-  </button>
-
-
-  <ul class="nav-menu">
-
-    <li>
-
-      <a
-        href="index.html"
-        class="active"
-      >
-        Home
-      </a>
-
-    </li>
-
-
-    <li>
-
-      <a href="#about">
-        About
-      </a>
-
-    </li>
-
-
-    <li>
-
-      <a href="#announcements">
-        Announcements
-      </a>
-
-    </li>
-
-
-    <li>
-
-      <a href="#scheduled-update">
-        Update
-      </a>
-
-    </li>
-
-
-    <li class="nav-actions">
-
-      <a
-        href="login.html"
-        class="btn btn-outline"
-      >
-        Login
-      </a>
-
-
-      <a
-        href="register.html"
-        class="btn btn-primary"
-      >
-        Register
-      </a>
-
-    </li>
-
-  </ul>
-
-</nav>
-
-
-<!-- ============================================================
-     HERO
-     ============================================================ -->
-
-<header class="hero">
-
-  <div class="hero-content fade-in">
-
-    <p class="hero-eyebrow">
-      Golden Pride Philippines
-    </p>
-
-
-    <h1>
-
-      Welcome to
-
-      <span class="text-gold">
-        Golden Pride Hub
-      </span>
-
-    </h1>
-
-
-    <p>
-
-      The official community platform of
-      Golden Pride Philippines —
-      stay updated with announcements,
-      events, achievements,
-      and connect with fellow members.
-
-    </p>
-
-
-    <div class="hero-actions">
-
-      <a
-        href="register.html"
-        class="btn btn-primary"
-      >
-
-        <i class="fa-solid fa-user-plus"></i>
-
-        Join the Pride
-
-      </a>
-
-
-      <a
-        href="login.html"
-        class="btn btn-outline"
-      >
-
-        <i class="fa-solid fa-right-to-bracket"></i>
-
-        Member Login
-
-      </a>
-
-    </div>
-
-  </div>
-
-</header>
-
-
-<!-- ============================================================
-     ABOUT
-     ============================================================ -->
-
-<section
-  class="about-section container"
-  id="about"
->
-
-  <div class="about-grid">
-
-
-    <div class="slide-in">
-
-      <p class="hero-eyebrow">
-        About Us
-      </p>
-
-
-      <h2 class="section-title">
-        Who We Are
-      </h2>
-
-
-      <p class="section-subtitle">
-
-        Golden Pride Philippines is a community
-        built on excellence, unity, and pride.
-        Golden Pride Hub is our digital home —
-        where members stay connected,
-        informed, and celebrated.
-
-        From official announcements to
-        community events and shared achievements,
-        this is where the Pride comes together.
-
-      </p>
-
-
-      <a
-        href="register.html"
-        class="btn btn-primary"
-      >
-        Become a Member
-      </a>
-
-    </div>
-
-
-    <div class="glass card fade-in">
-
-      <h3>
-
-        <i class="fa-solid fa-star text-gold"></i>
-
-        Our Values
-
-      </h3>
-
-
-      <p
-        style="
-          margin-top:12px;
-          color:var(--color-gray);
-        "
-      >
-
-        Excellence, unity, and pride guide
-        everything we do as a community —
-        from local events to shared celebrations
-        of our members' achievements.
-
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ============================================================
-     SCHEDULED UPDATE
-     
-     SOURCE:
-     GitHub repository:
-     crislorencenenez7-byte/Golden-Pride-Hub
-
-     Branch:
-     staging
-
-     File:
-     update.json
-
-     IMPORTANT:
-     update.json must exist at:
-
-     staging/update.json
-
-     NOT:
-
-     staging/update-1.4/update.json
-
-     NOT:
-
-     main/update.json
-     ============================================================ -->
-
-<section
-  class="container"
-  id="scheduled-update"
-  style="padding-bottom:80px;"
->
-
-
-  <p class="hero-eyebrow">
-    Upcoming Update
-  </p>
-
-
-  <h2 class="section-title">
-    Scheduled Update
-  </h2>
-
-
-  <p
-    id="update-description"
-    class="section-subtitle"
-  >
-    Loading update information...
-  </p>
-
-
-  <div
-    class="glass card"
-    style="
-      text-align:center;
-      padding:30px;
-    "
-  >
-
-
-    <p
-      style="
-        color:var(--color-gold);
-        font-size:.8rem;
-        font-weight:700;
-        letter-spacing:3px;
-        margin-bottom:10px;
-      "
-    >
-      NEXT RELEASE
-    </p>
-
-
-    <h3
-      id="update-version"
-      class="text-gold"
-    >
-      UPDATE
-    </h3>
-
-
-    <p
-      id="update-name"
-      style="
-        margin:10px auto 24px;
-        color:var(--color-gray-light);
-      "
-    >
-      Loading...
-    </p>
-
-
-    <!-- ========================================================
-         COUNTDOWN
-         ======================================================== -->
-
-    <div
-      id="update-countdown"
-      style="
-        display:grid;
-        grid-template-columns:repeat(4,1fr);
-        gap:12px;
-        max-width:700px;
-        margin:0 auto 24px;
-      "
-    >
-
-
-      <!-- DAYS -->
-
-      <div
-        class="glass"
-        style="
-          padding:18px 10px;
-        "
-      >
-
-        <strong
-          id="count-days"
-          style="
-            display:block;
-            color:var(--color-gold);
-            font-size:2rem;
-            font-weight:800;
-          "
-        >
-          00
-        </strong>
-
-
-        <span
-          style="
-            color:var(--color-gray);
-            font-size:.75rem;
-          "
-        >
-          Days
-        </span>
-
-      </div>
-
-
-      <!-- HOURS -->
-
-      <div
-        class="glass"
-        style="
-          padding:18px 10px;
-        "
-      >
-
-        <strong
-          id="count-hours"
-          style="
-            display:block;
-            color:var(--color-gold);
-            font-size:2rem;
-            font-weight:800;
-          "
-        >
-          00
-        </strong>
-
-
-        <span
-          style="
-            color:var(--color-gray);
-            font-size:.75rem;
-          "
-        >
-          Hours
-        </span>
-
-      </div>
-
-
-      <!-- MINUTES -->
-
-      <div
-        class="glass"
-        style="
-          padding:18px 10px;
-        "
-      >
-
-        <strong
-          id="count-minutes"
-          style="
-            display:block;
-            color:var(--color-gold);
-            font-size:2rem;
-            font-weight:800;
-          "
-        >
-          00
-        </strong>
-
-
-        <span
-          style="
-            color:var(--color-gray);
-            font-size:.75rem;
-          "
-        >
-          Minutes
-        </span>
-
-      </div>
-
-
-      <!-- SECONDS -->
-
-      <div
-        class="glass"
-        style="
-          padding:18px 10px;
-        "
-      >
-
-        <strong
-          id="count-seconds"
-          style="
-            display:block;
-            color:var(--color-gold);
-            font-size:2rem;
-            font-weight:800;
-          "
-        >
-          00
-        </strong>
-
-
-        <span
-          style="
-            color:var(--color-gray);
-            font-size:.75rem;
-          "
-        >
-          Seconds
-        </span>
-
-      </div>
-
-    </div>
-
-
-    <!-- STATUS -->
-
-    <p
-      id="update-status"
-      style="
-        color:var(--color-gray);
-        font-size:.85rem;
-      "
-    >
-      Loading release schedule...
-    </p>
-
-  </div>
-
-</section>
-
-
-<!-- ============================================================
-     ANNOUNCEMENTS
-     ============================================================ -->
-
-<section
-  class="container"
-  id="announcements"
-  style="padding-bottom:80px;"
->
-
-  <p class="hero-eyebrow">
-    Stay Updated
-  </p>
-
-
-  <h2 class="section-title">
-    Latest Announcement
-  </h2>
-
-
-  <p class="section-subtitle">
-    A quick look at what's new in the community.
-  </p>
-
-
-  <div
-    id="latest-announcement"
-    class="grid grid-3"
-  ></div>
-
-</section>
-
-
-<!-- ============================================================
-     FOOTER
-     ============================================================ -->
-
-<footer class="site-footer">
-
-  <p class="footer-logo">
-    Golden Pride Hub
-  </p>
-
-
-  <p>
-
-    &copy;
-
-    <span id="year"></span>
-
-    Golden Pride Philippines.
-    All rights reserved.
-
-  </p>
-
-</footer>
-
-
-<!-- ============================================================
-     SCROLL TOP
-     ============================================================ -->
-
-<button
-  id="scroll-top"
-  aria-label="Scroll to top"
-  type="button"
->
-
-  <i class="fa-solid fa-arrow-up"></i>
-
-</button>
-
-
-<!-- ============================================================
-     FIREBASE
-     ============================================================ -->
-
-<script
-  src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"
-></script>
-
-
-<script
-  src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"
-></script>
-
-
-<script
-  src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"
-></script>
-
-
-<script src="js/firebase-config.js"></script>
-
-<script src="js/app.js"></script>
-
-<script src="js/dashboard.js"></script>
-
-
-<!-- ============================================================
-     PAGE + RELEASE + COUNTDOWN
-     ============================================================ -->
-
-<script>
-
-"use strict";
-
-
-/* ============================================================
-   YEAR
-   ============================================================ */
-
-const yearElement =
-  document.getElementById("year");
-
-
-if (yearElement) {
-
-  yearElement.textContent =
-    new Date().getFullYear();
-
-}
-
-
-/* ============================================================
-   RELEASE BANNER
-   SOURCE:
-   main/version.json
-   ============================================================ */
-
-async function loadReleaseBanner() {
-
-  const banner =
-    document.getElementById(
-      "release-banner-text"
-    );
-
-
-  if (!banner) {
-    return;
-  }
-
-
-  try {
-
-    const response =
-      await fetch(
-        "version.json?ts=" +
-        Date.now(),
-        {
-          method: "GET",
-          cache: "no-store"
-        }
-      );
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        "version.json HTTP " +
-        response.status
-      );
-
-    }
-
-
-    const data =
-      await response.json();
-
-
-    const version =
-      data.version
-        ? `Version ${data.version}`
-        : "";
-
-
-    const updateName =
-      data.updateName ||
-      "Golden Pride Hub";
-
-
-    banner.textContent =
-      version
-        ? `${updateName} • ${version}`
-        : updateName;
-
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "Version banner error:",
-      error
-    );
-
-
-    banner.textContent =
-      "Golden Pride Hub";
-
-  }
-
-}
-
-
-/* ============================================================
-   SCHEDULED UPDATE
-   SOURCE:
-   GitHub staging branch
-
-   Repository:
-   crislorencenenez7-byte/Golden-Pride-Hub
-
-   Branch:
-   staging
-
-   File:
-   update.json
-   ============================================================ */
-
-async function loadScheduledUpdate() {
-
-
-  /* ==========================================================
-     ELEMENTS
-     ========================================================== */
-
-  const updateName =
-    document.getElementById(
-      "update-name"
-    );
-
-
-  const updateVersion =
-    document.getElementById(
-      "update-version"
-    );
-
-
-  const description =
-    document.getElementById(
-      "update-description"
-    );
-
-
-  const status =
-    document.getElementById(
-      "update-status"
-    );
-
-
-  const days =
-    document.getElementById(
-      "count-days"
-    );
-
-
-  const hours =
-    document.getElementById(
-      "count-hours"
-    );
-
-
-  const minutes =
-    document.getElementById(
-      "count-minutes"
-    );
-
-
-  const seconds =
-    document.getElementById(
-      "count-seconds"
-    );
-
-
-  /* ==========================================================
-     CHECK ELEMENTS
-     ========================================================== */
-
-  if (
-    !updateName ||
-    !updateVersion ||
-    !description ||
-    !status ||
-    !days ||
-    !hours ||
-    !minutes ||
-    !seconds
-  ) {
-
-    console.error(
-      "Countdown elements are missing."
-    );
-
-    return;
-
-  }
-
-
-  /* ==========================================================
-     GITHUB RAW URL
-
-     IMPORTANT:
-
-     Repository:
-     Golden-Pride-Hub
-
-     Branch:
-     staging
-
-     File:
-     update.json
-     ========================================================== */
-
-  const UPDATE_URL =
-    "https://raw.githubusercontent.com/" +
-    "crislorencenenez7-byte/" +
-    "Golden-Pride-Hub/" +
-    "staging/" +
-    "update.json?ts=" +
-    Date.now();
-
-
-  console.log(
-    "Scheduled update URL:",
-    UPDATE_URL
-  );
-
-
-  try {
-
-
-    /* ========================================================
-       FETCH
-       ======================================================== */
-
-    const response =
-      await fetch(
-        UPDATE_URL,
-        {
-          method: "GET",
-          cache: "no-store"
-        }
-      );
-
-
-    console.log(
-      "Scheduled update HTTP status:",
-      response.status
-    );
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        `HTTP ${response.status}`
-      );
-
-    }
-
-
-    /* ========================================================
-       PARSE JSON
-       ======================================================== */
-
-    const data =
-      await response.json();
-
-
-    console.log(
-      "Scheduled update data:",
-      data
-    );
-
-
-    /* ========================================================
-       VALIDATE
-       ======================================================== */
-
-    if (
-      !data.version ||
-      !data.updateName ||
-      !data.releaseDate ||
-      !data.releaseTime
-    ) {
-
-      throw new Error(
-        "update.json is missing required fields."
-      );
-
-    }
-
-
-    /* ========================================================
-       DISPLAY DATA
-       ======================================================== */
-
-    updateVersion.textContent =
-      `UPDATE ${data.version}`;
-
-
-    updateName.textContent =
-      data.updateName;
-
-
-    description.textContent =
-      `Version ${data.version}`;
-
-
-    /* ========================================================
-       CREATE RELEASE TIMESTAMP
-
-       Philippine Time = UTC+08:00
-
-       Example:
-
-       2026-08-27
-       20:00
-
-       becomes:
-
-       2026-08-27T20:00:00+08:00
-       ======================================================== */
-
-    const releaseString =
-      `${data.releaseDate}T` +
-      `${data.releaseTime}:00+08:00`;
-
-
-    console.log(
-      "Release string:",
-      releaseString
-    );
-
-
-    const releaseDate =
-      new Date(
-        releaseString
-      );
-
-
-    const releaseTimestamp =
-      releaseDate.getTime();
-
-
-    console.log(
-      "Release timestamp:",
-      releaseTimestamp
-    );
-
-
-    /* ========================================================
-       VALIDATE DATE
-       ======================================================== */
-
-    if (
-      Number.isNaN(
-        releaseTimestamp
-      )
-    ) {
-
-      throw new Error(
-        `Invalid release date/time: ${releaseString}`
-      );
-
-    }
-
-
-    /* ========================================================
-       COUNTDOWN TIMER
-       ======================================================== */
-
-    let countdownInterval = null;
-
-
-    function updateCountdown() {
-
-
-      const now =
+      const UPDATE_URL =
+        "https://raw.githubusercontent.com/" +
+        "crislorencenenez7-byte/" +
+        "Golden-Pride-Hub/" +
+        "staging/" +
+        "update.json?ts=" +
         Date.now();
 
 
-      const difference =
-        releaseTimestamp -
-        now;
+      console.log(
+        "Loading scheduled update:"
+      );
+
+      console.log(
+        UPDATE_URL
+      );
 
 
-      /* ======================================================
-         UPDATE ALREADY RELEASED
-         ====================================================== */
-
-      if (
-        difference <= 0
-      ) {
+      try {
 
 
-        days.textContent =
-          "00";
+        /* ========================================================
+           FETCH
+           ======================================================== */
 
-
-        hours.textContent =
-          "00";
-
-
-        minutes.textContent =
-          "00";
-
-
-        seconds.textContent =
-          "00";
-
-
-        status.textContent =
-          `${data.updateName} • UPDATE IS NOW LIVE!`;
-
-
-        status.style.color =
-          "var(--color-gold)";
+        const response =
+          await fetch(
+            UPDATE_URL,
+            {
+              method: "GET",
+              cache: "no-store"
+            }
+          );
 
 
         console.log(
-          "UPDATE IS NOW LIVE!"
+          "update.json HTTP:",
+          response.status
+        );
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            `staging/update.json HTTP ${response.status}`
+          );
+
+        }
+
+
+        /* ========================================================
+           JSON
+           ======================================================== */
+
+        const data =
+          await response.json();
+
+
+        console.log(
+          "Loaded staging/update.json:",
+          data
+        );
+
+
+        /* ========================================================
+           VALIDATE
+           ======================================================== */
+
+        if (
+          !data.version ||
+          !data.updateName ||
+          !data.releaseDate ||
+          !data.releaseTime
+        ) {
+
+          throw new Error(
+            "update.json is missing required fields"
+          );
+
+        }
+
+
+        /* ========================================================
+           DISPLAY UPDATE
+           ======================================================== */
+
+        updateVersion.textContent =
+          `UPDATE ${data.version}`;
+
+
+        updateName.textContent =
+          data.updateName;
+
+
+        description.textContent =
+          `Version ${data.version}`;
+
+
+        /* ========================================================
+           NORMALIZE TIME
+
+           5:30
+           becomes
+           05:30
+
+           12:30
+           stays
+           12:30
+           ======================================================== */
+
+        const timeParts =
+          String(data.releaseTime)
+            .trim()
+            .split(":");
+
+
+        if (
+          timeParts.length < 2
+        ) {
+
+          throw new Error(
+            `Invalid releaseTime: ${data.releaseTime}`
+          );
+
+        }
+
+
+        const hour =
+          String(
+            parseInt(
+              timeParts[0],
+              10
+            )
+          ).padStart(2, "0");
+
+
+        const minute =
+          String(
+            parseInt(
+              timeParts[1],
+              10
+            )
+          ).padStart(2, "0");
+
+
+        if (
+          !/^\d{2}$/.test(hour) ||
+          !/^\d{2}$/.test(minute)
+        ) {
+
+          throw new Error(
+            `Invalid releaseTime: ${data.releaseTime}`
+          );
+
+        }
+
+
+        const normalizedTime =
+          `${hour}:${minute}`;
+
+
+        /* ========================================================
+           BUILD PHILIPPINE TIME
+
+           Example:
+
+           2026-08-27
+           5:30
+
+           becomes:
+
+           2026-08-27T05:30:00+08:00
+           ======================================================== */
+
+        const releaseString =
+          `${data.releaseDate}T` +
+          `${normalizedTime}:00+08:00`;
+
+
+        console.log(
+          "Release string:",
+          releaseString
+        );
+
+
+        /* ========================================================
+           TIMESTAMP
+           ======================================================== */
+
+        const releaseTime =
+          new Date(
+            releaseString
+          ).getTime();
+
+
+        console.log(
+          "Release timestamp:",
+          releaseTime
         );
 
 
         if (
-          countdownInterval !== null
+          Number.isNaN(
+            releaseTime
+          )
         ) {
 
-          clearInterval(
-            countdownInterval
+          throw new Error(
+            `Invalid release date/time: ${releaseString}`
           );
-
-          countdownInterval =
-            null;
 
         }
 
+
+        /* ========================================================
+           COUNTDOWN
+           ======================================================== */
+
+        function updateCountdown() {
+
+
+          const now =
+            Date.now();
+
+
+          const difference =
+            releaseTime -
+            now;
+
+
+          /* ======================================================
+             RELEASED
+             ====================================================== */
+
+          if (
+            difference <= 0
+          ) {
+
+            days.textContent =
+              "00";
+
+
+            hours.textContent =
+              "00";
+
+
+            minutes.textContent =
+              "00";
+
+
+            seconds.textContent =
+              "00";
+
+
+            status.textContent =
+              `${data.updateName} • UPDATE IS NOW LIVE!`;
+
+
+            return;
+
+          }
+
+
+          /* ======================================================
+             TOTAL SECONDS
+             ====================================================== */
+
+          const totalSeconds =
+            Math.floor(
+              difference / 1000
+            );
+
+
+          /* ======================================================
+             DAYS
+             ====================================================== */
+
+          const d =
+            Math.floor(
+              totalSeconds / 86400
+            );
+
+
+          /* ======================================================
+             HOURS
+             ====================================================== */
+
+          const h =
+            Math.floor(
+              (
+                totalSeconds % 86400
+              ) / 3600
+            );
+
+
+          /* ======================================================
+             MINUTES
+             ====================================================== */
+
+          const m =
+            Math.floor(
+              (
+                totalSeconds % 3600
+              ) / 60
+            );
+
+
+          /* ======================================================
+             SECONDS
+             ====================================================== */
+
+          const s =
+            totalSeconds % 60;
+
+
+          /* ======================================================
+             DISPLAY
+             ====================================================== */
+
+          days.textContent =
+            String(d)
+              .padStart(2, "0");
+
+
+          hours.textContent =
+            String(h)
+              .padStart(2, "0");
+
+
+          minutes.textContent =
+            String(m)
+              .padStart(2, "0");
+
+
+          seconds.textContent =
+            String(s)
+              .padStart(2, "0");
+
+
+          /* ======================================================
+             STATUS
+             ====================================================== */
+
+          status.textContent =
+            `Releasing ${data.releaseDate} ` +
+            `at ${normalizedTime} PH`;
+
+        }
+
+
+        /* ========================================================
+           START COUNTDOWN
+           ======================================================== */
+
+        updateCountdown();
+
+
+        /* ========================================================
+           EVERY SECOND
+           ======================================================== */
+
+        const countdownInterval =
+          setInterval(
+            updateCountdown,
+            1000
+          );
+
+
+        /*
+          Store interval so it can be cleared
+          if needed later.
+        */
+
+        window.goldenPrideCountdownInterval =
+          countdownInterval;
+
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "Scheduled update error:",
+          error
+        );
+
+
+        /* ========================================================
+           ERROR DISPLAY
+           ======================================================== */
+
+        updateVersion.textContent =
+          "UPDATE";
+
+
+        updateName.textContent =
+          "No active scheduled release";
+
+
+        description.textContent =
+          "No active scheduled release was found.";
+
+
+        days.textContent =
+          "--";
+
+
+        hours.textContent =
+          "--";
+
+
+        minutes.textContent =
+          "--";
+
+
+        seconds.textContent =
+          "--";
+
+
+        status.textContent =
+          "Unable to load staging/update.json.";
+
+      }
+
+    }
+
+
+    /* ============================================================
+       ANNOUNCEMENT PREVIEW
+       ============================================================ */
+
+    function initPreview() {
+
+
+      if (
+        typeof loadRecentAnnouncementPreview ===
+          "function" &&
+        typeof db !== "undefined"
+      ) {
+
+        loadRecentAnnouncementPreview();
 
         return;
 
       }
 
 
-      /* ======================================================
-         TOTAL SECONDS
-         ====================================================== */
+      /*
+        Prevent endless retry.
+      */
 
-      const totalSeconds =
-        Math.floor(
-          difference / 1000
+      if (
+        window.previewRetryCount === undefined
+      ) {
+
+        window.previewRetryCount = 0;
+
+      }
+
+
+      window.previewRetryCount++;
+
+
+      if (
+        window.previewRetryCount < 20
+      ) {
+
+        setTimeout(
+          initPreview,
+          300
         );
 
-
-      /* ======================================================
-         CALCULATE
-         ====================================================== */
-
-      const d =
-        Math.floor(
-          totalSeconds / 86400
-        );
-
-
-      const h =
-        Math.floor(
-          (
-            totalSeconds % 86400
-          ) / 3600
-        );
-
-
-      const m =
-        Math.floor(
-          (
-            totalSeconds % 3600
-          ) / 60
-        );
-
-
-      const s =
-        totalSeconds % 60;
-
-
-      /* ======================================================
-         DISPLAY
-         ====================================================== */
-
-      days.textContent =
-        String(d).padStart(
-          2,
-          "0"
-        );
-
-
-      hours.textContent =
-        String(h).padStart(
-          2,
-          "0"
-        );
-
-
-      minutes.textContent =
-        String(m).padStart(
-          2,
-          "0"
-        );
-
-
-      seconds.textContent =
-        String(s).padStart(
-          2,
-          "0"
-        );
-
-
-      /* ======================================================
-         STATUS
-         ====================================================== */
-
-      status.textContent =
-        `Releasing ${data.releaseDate} ` +
-        `at ${data.releaseTime} PH`;
-
-
-      status.style.color =
-        "var(--color-gray)";
-
+      }
 
     }
 
 
-    /* ========================================================
-       FIRST UPDATE
-       ======================================================== */
+    /* ============================================================
+       START
+       ============================================================ */
 
-    updateCountdown();
+    loadReleaseBanner();
+
+    loadScheduledUpdate();
 
 
-    /* ========================================================
-       START TIMER
-       ======================================================== */
+    if (
+      document.readyState ===
+      "loading"
+    ) {
 
-    countdownInterval =
-      setInterval(
-        updateCountdown,
-        1000
+      document.addEventListener(
+        "DOMContentLoaded",
+        initPreview
       );
 
+    }
 
-  }
+    else {
 
-  catch (error) {
+      initPreview();
+
+    }
 
 
-    /* ========================================================
-       ERROR
-       ======================================================== */
+  </script>
 
-    console.error(
-      "Scheduled update error:",
-      error
+
+  <!-- ============================================================
+       FINAL LOADING FALLBACK
+       ============================================================ -->
+
+  <script>
+
+    /*
+      Last-resort protection.
+
+      This runs even if another script above
+      throws an unexpected JavaScript error.
+    */
+
+    window.addEventListener(
+      "load",
+      function () {
+
+        const loadingScreen =
+          document.getElementById(
+            "loading-screen"
+          );
+
+        if (!loadingScreen) {
+          return;
+        }
+
+        loadingScreen.classList.add(
+          "hidden"
+        );
+
+        setTimeout(
+          function () {
+
+            loadingScreen.style.display =
+              "none";
+
+          },
+          350
+        );
+
+      }
     );
 
 
-    updateVersion.textContent =
-      "UPDATE";
+    /*
+      Absolute maximum loading time:
+      3 seconds.
+    */
 
+    setTimeout(
+      function () {
 
-    updateName.textContent =
-      "No scheduled update";
+        const loadingScreen =
+          document.getElementById(
+            "loading-screen"
+          );
 
+        if (!loadingScreen) {
+          return;
+        }
 
-    description.textContent =
-      "No active scheduled release was found.";
+        loadingScreen.classList.add(
+          "hidden"
+        );
 
+        setTimeout(
+          function () {
 
-    days.textContent =
-      "--";
+            loadingScreen.style.display =
+              "none";
 
+          },
+          350
+        );
 
-    hours.textContent =
-      "--";
+      },
+      3000
+    );
 
-
-    minutes.textContent =
-      "--";
-
-
-    seconds.textContent =
-      "--";
-
-
-    status.textContent =
-      "Unable to load staging/update.json.";
-
-
-  }
-
-}
-
-
-/* ============================================================
-   ANNOUNCEMENT PREVIEW
-   ============================================================ */
-
-function initPreview() {
-
-
-  if (
-    typeof loadRecentAnnouncementPreview ===
-      "function" &&
-    typeof db !== "undefined"
-  ) {
-
-
-    loadRecentAnnouncementPreview();
-
-
-    return;
-
-  }
-
-
-  setTimeout(
-    initPreview,
-    300
-  );
-
-}
-
-
-/* ============================================================
-   START APPLICATION
-   ============================================================ */
-
-loadReleaseBanner();
-
-loadScheduledUpdate();
-
-
-if (
-  document.readyState ===
-  "loading"
-) {
-
-  document.addEventListener(
-    "DOMContentLoaded",
-    initPreview
-  );
-
-}
-
-else {
-
-  initPreview();
-
-}
-
-</script>
-
+  </script>
 
 </body>
 
